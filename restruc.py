@@ -1,6 +1,8 @@
 import os
 import re
+# source media storage directory (Flood UI via Transmission)
 mediadir = f'/mnt/bigstore/MediaStorage/'
+# destination media library directory (JellyFin scannable)
 strucdir = f'/mnt/bigstore/MediaLibrary/'
 
 # fix mediadir variable if user forgot trailing filesep
