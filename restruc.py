@@ -10,8 +10,8 @@ if not mediadir.endswith(os.path.sep):
     mediadir = mediadir+os.path.sep
 if not strucdir.endswith(os.path.sep):
     strucdir = strucdir+os.path.sep
-regex_topdir = re.compile(str(mediadir+r'.*?'+os.path.sep+r'(.*?)'+os.path.sep))
-regex_episode = re.compile(r'^.*S0*(\d+).*?E0*(\d+).*\.(.*?)$')
+regex_topdir = re.compile(str(mediadir+r'.*?'+os.path.sep+r'(.*?)'+os.path.sep+'?'))
+regex_episode = re.compile(r'^.*S0*(\d+).*?E0*(\d+).*\.(.*?)$', flags=re.IGNORECASE)
 
 def mkdir(directory):
     os.makedirs(directory,exist_ok=True)
