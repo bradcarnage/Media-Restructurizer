@@ -10,7 +10,7 @@ if not mediadir.endswith(os.path.sep):
     mediadir = mediadir+os.path.sep
 if not strucdir.endswith(os.path.sep):
     strucdir = strucdir+os.path.sep
-regex_topdir = re.compile(str(mediadir+r'.*?'+os.path.sep+r'(.*?)'+os.path.sep+'?'))
+regex_topdir = re.compile(str(mediadir+r'.*?'+os.path.sep+r'(.*?)'+os.path.sep))
 regex_episode = re.compile(r'^.*S0*(\d+).*?E0*(\d+).*\.(.*?)$', flags=re.IGNORECASE)
 
 def mkdir(directory):
@@ -43,14 +43,14 @@ for subdir in ['Movies', 'Shows']:
         for filename in files:
             match = regex_episode.match(filename)
             if match:
-                showname = regex_topdir.match(root).group(1)
+                sourcefile = os.path.join(root, filename)
+                showname = regex_topdir.match(sourcefile).group(1)
                 season = match.group(1)
                 episode = match.group(2)
                 ext = match.group(3)
                 if ext != 'part':
-                    sourcefile = os.path.join(root, filename)
                     # print(f"File: {sourcefile}, ShowName: {showname}, Season: {season}, Episode: {episode}, Ext {ext}")
-                    destfolder = f'{mediastruc}{os.path.sep}{showname}{os.path.sep}Season {season}{os.path.sep}'
+                    destfolder = f'{mediastruc}{os.path.sep}{showname}{os.path.sep}Season {season}{os.path.sep}'.replace(os.path.sep+os.path.sep, os.path.sep)
                     destfile = f'Episode {episode}.{ext}'
                     if not os.path.islink(destfolder+destfile):
                         print(f'Mkdir {destfolder} and copy in {destfile}')
